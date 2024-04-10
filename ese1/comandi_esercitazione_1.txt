@@ -1,0 +1,331 @@
+LOGIN-LOGOUT 
+1) Eseguire la fase di login sul proprio sistema UNIX/LINUX.
+login
+2) Eseguire la fase di logout. 
+logout
+
+NOTA BENE: TUTTE LE ESERCITAZIONI VANNO SEMPRE SVOLTE UTILIZZANDO UNA INTERFACCIA TESTUALE, O QUELLA NATIVA IN CASO DI SISTEMA UNIX/LINUX INSTALLATO DIRETTAMENTE SUL PC O QUELLA OTTENIBILE 
+APRENDO UNA FINESTRA DI TERMINALE NEL CASO DI SISTEMA INSTALLATO SU MACCHINA VIRTUALE 
+DIRECTORY E FILE DI SISTEMA 
+
+3)	Dopo avere nuovamente fatto il login, senza spostarsi dalla propria HOME directory, visualizzare il contenuto della directory / (root).
+
+ls /
+
+4)	Sempre senza spostarsi dalla propria HOME directory, verificare il contenuto del file /etc/passwd. 
+
+cat /etc/passwd
+
+5)	Visualizzare quale è la directory corrente.
+
+pwd
+
+6)	Cambiare la directory corrente spostandosi nella directory di sistema /etc.
+
+cd /etc
+
+7)	Senza spostarsi dalla directory /etc, visualizzare quale è la propria HOME directory.
+
+echo $HOME
+
+8)	Visualizzare nuovamente il file passwd.
+
+cat ./passwd
+
+9)	Provare a visualizzare il file shadow.  
+
+cat ./shadow
+
+10)	Tornare nella propria HOME directory e verificarlo con lo stesso comando usato al punto 5).
+
+cd $HOME
+pwd
+
+MULTIUTENZA E MULTIPROCESSING 
+11)	Visualizzare le informazioni relative a UID e GID dell’utente corrente. 
+
+id matteo --> visualizza tutte le info UID GID e GROUPS a cui appartiene l'utente
+id -u matteo --> solo lo UID
+id -g matteo --> solo il GID
+
+12)	Visualizzare i processi della sessione interattiva corrente, sia nella forma sintetica che nelle due forme più estese. 
+
+ps
+top / htop
+
+ps aux --> forma estesa da redirectare con less perchè nella shell non ci sta
+
+a --> all with tty, including other users
+u --> user-oriented format
+x --> proecesses without controlling ttys
+ps aux | less  --> per visualizzare il contenuto in più pagine possiamo usare sia "more" che "less" ma less è più avanzato di more ha molte più funzioni
+
+
+13)	Visualizzare tutti i processi attivi nel sistema, sia nella forma sintetica che nelle due forme più estese. 
+MISCELLANEA 
+
+
+
+14)	Verificare il manuale di almeno uno dei comandi usati finora. 
+
+man ls
+
+15)	Verificare dove si trova il file eseguibile di almeno uno dei comandi usati finora. 
+
+which ls
+
+16)	Verificare anche dove si trova il suo manuale. (posso specificare direttamente il comando oppure l'eseguibile del comando)
+
+man -w ls
+man -where ls
+man -w $(which ls)
+
+SHELL DIVERSE 
+17)	Lanciare un’altra shell, ad esempio sh, e verificare i processi attivi e in particolare la relazione padre-figlio. 
+
+sh
+ps f --> fa vedere la lista processi padre e figlio ad albero
+ps -f --> (FULL) mostra il PID e il PPID sia PID padre che PID figlio
+
+18)	All’interno della nuova shell precedentemente lanciata, lanciare un’altra shell, ad esempio bash, e verificare i processi attivi e in particolare la relazione padre-figlio. 
+NOMI FILE E COMANDO LS 
+
+bash
+ps -f
+
+19)	Dopo aver verificato di essere nella propria HOME directory, con l’editor vi (o qualunque altro editor) creare un file che abbia un nome molto lungo; si scrivano almeno alcune linee in tale file. Si verifichi l’esistenza di tale file con l’opportuno comando. 
+
+pwd
+nano nomefile
+find nomefile
+
+20)	Sempre nella propria HOME directory, con un editor creare un file che abbia un nome che contenga più occorrenze del carattere ‘.’; come prima, si scrivano almeno alcune linee in tale file. Si verifichi l’esistenza di tale file con l’opportuno comando. 
+
+nano file.prova.esercizi.os
+find file.prova.esercizi.os
+
+21)	Sempre nella propria HOME directory, con un editor creare un file che abbia un nome che inizi con il carattere ‘.’; come prima, si scrivano almeno alcune linee in tale file; si verifichi quindi il contenuto della home directory, forzando le due visualizzazioni che consentono di ‘vedere’ anche i file il cui nome inizia con ‘.’ . 
+ALTRE OPZIONI DEL COMANDO LS 
+
+nano .file_nascosto
+ls -al --> a (ALL) l (LIST)
+
+22)	Cambiare la directory corrente spostandosi nella directory di sistema /home e visualizzare la sottogerarchia che parte da lì facendo vedere tutti i dettagli, anche sul ‘tipo’ dei file. 
+ 
+ (tree non è incluso nativamente con debian bisogna installato apt install tree)
+ tree
+ tree -a [ALL]
+ 
+23)	Rimanendo nella directory di sistema /home, visualizzare il contenuto della propria HOME directory partendo dal file modificato più recentemente; aggiornare la data di modifica di uno dei file meno recenti e quindi verificarne l’effetto ripetendo la visualizzazione della propria HOME directory. 
+
+tree -at --> t fa il sort per data di modifica più recente
+touch -mt 202403071353.00 file.prova
+tree -at --> ora il file.prova è alla fine
+(oppure si può usare ls -t)
+
+24)	Rimanendo nella directory di sistema /home, visualizzare il contenuto della propria HOME directory in ordine alfabetico inverso. 
+
+ls -r
+(oppure tree -r)
+
+25)	Rimanendo nella directory di sistema /home, visualizzare le informazioni relative al file che rappresenta la propria HOME directory. 
+PATTERN MATCHING CON * E ? 
+
+con ? rappresento solo un carattere file?.txt mi restituisce file1.txt, file2.txt ma non file1234.txt
+con * rappresento più caratteri file*.txt mi restituisce tutto ciò che inizia con file e finisce con .txt
+
+ls -al /home/matteo/*
+
+26)	Ritornare nella propria HOME directory e creare con un editor alcuni file per verificare le regole del pattern matching sui nomi dei file. 
+
+ls browser*
+(in questo modo verranno visualizzati i file browser1, browser2, browser3)
+
+27)	Verificare le sostituzioni del pattern matching invocando una shell che mostri appunto tali sostituzioni. 
+
+il compito di tradurre gli alias e i pattern matching è demandato alla shell utilizzata
+lanciando le shell con appositi parametri è possibile stampare tutte le "traduzioni" che la shell apporta ai comandi che lanciamo
+
+per bash
+
+bash -x
+
+per sh
+
+sh -x
+
+Una volta avviata la shell in questo modo ad ogni comando lanciato la shell ci mostra le traduzioni in tempo reale (sia gli alias che il patthern matching)
+
+
+28)	Verificare il pattern matching anche con il comando per visualizzare sullo standard output delle stringhe. 
+DIRITTI DI ACCESSO PER I FILE 
+
+echo browser*
+
+29)	Verificare i diritti di accesso dei file /etc/passwd e /etc/shadow. 
+
+ls -l /etc/passwd /etc/shadow
+
+30)	Eliminare, per l’utente corrente, il diritto di scrittura ad uno dei propri file e verificare il comportamento di un editor su quel file. 
+
+chmod u-w browser1
+
+31)	Eliminare anche il diritto di lettura sullo stesso file e provare a visualizzare il file. 
+
+chmod u-r browser1
+
+32)	Usando la notazione ottale, ripristinare per l’utente corrente sia il diritto di lettura che quello di scrittura, togliendo qualunque altro diritto a gruppo e altri (indipendentemente da quali diritti potevano avere precedentemente). 
+
+chmod 600 browser1
+
+CREAZIONE E CANCELLAZIONE DIRECTORY 
+33)	Creare una sottodirectory nella propria HOME directory dandogli nome provaDir. Si verifichi l’esistenza di tale sottodirectory con l’opportuno comando. 
+
+mkdir provaDir.
+find provaDir.
+oppure
+ls -ld provaDir.
+
+(attenzione se faccio ls -l provaDir. non vedo i dettagli della directory ma vedo il contenuto che ovviamente per adesso è vuoto)
+
+34)	Controllare il contenuto di tale sottodirectory con l’opportuno comando. 
+
+ls -al provaDir.
+
+35)	Cancellare la sottodirectory appena creata. 
+
+rmdir provaDir.
+
+COPIA DI FILE 
+36)	Creare nuovamente la sottodirectory provaDir e creare, in tale sottodirectory, una copia di un file presente nella propria HOME directory e verificare l’esistenza di tale copia. 
+
+mkdir provaDir.
+cp browser1 provaDir.
+ls provaDir./broser1
+
+oppure find provaDir./browser1
+
+37)	Modificare la copia e verificare che la modifica non abbia avuto effetto sul file ‘sorgente’ 
+
+nano provaDir./browser1
+(faccio delle modifiche)
+cat browser1
+cat provaDir./browser1
+
+38)	Fare la copia di un file presente nella propria HOME directory (si può usare, volendo, anche lo stesso file di prima) nella sottodirectory provaDir lasciando lo stesso nome del file originale e mantenendo/preservando in particolare la data del file e verificare l’esistenza di tale copia. 
+
+cp -p browser1 provaDir.
+ls -al provaDir./browser1
+
+39)	Fare la copia della sottodirectory provaDir utilizzando un singolo comando e usando come nome della copia provaDir.Originale. 
+
+cp -r provaDir./ provaDir.originale.
+
+(visto che contiene dei file devo usare -r ovvero --recursive per indicare di copiare anche tutti i file)
+
+CANCELLAZIONE FILE E DIRECTORY 
+40)	Cancellare il file creato al punto 36), facendo attenzione che il S.O. vi chieda la conferma, usando il nome relativo alla directory corrente e quindi rimanendo nella propria HOME directory. 
+
+rm -i provaDir./browser1
+
+(uso -i per chiedere conferma)
+
+41)	Cancellare il file creato al punto 38), facendo attenzione che il S.O. vi chieda la conferma, dopo essersi spostati nella sottodirectory provaDir e quindi usando il nome relativo semplice. 
+
+cd provaDir.originale.
+rm -i browser1
+
+42)	Creare nella sottodirectory provaDir almeno un file con un editor. Si verifichi l’esistenza di tale file con l’opportuno comando. 
+
+cd provaDir.
+nano file.txt
+ls file.txt
+
+43)	Cancellare la sottodirectory provaDir. 
+
+rm -r provaDir.
+
+(se no se voglio la conferma inserisco -ri)
+
+RIDIREZIONE cp -p zzz provaDir
+CAT 
+44)	Usando la ridirezione dello standard output del comando-filtro cat, 
+creare un file di nome prova (inserire almeno 5-6 linee con più parole per linea). Ricordarsi che la fine dei caratteri dallo standard input, se collegato (default) alla tastiera, si ottiene con ^D (CTRL-D). 
+
+cat > prova
+(cat aspetta uno standard input che poi redirecterà in prova)
+
+45)	Usando la ridirezione dello standard output del comando pwd e del comando ls -l, aggiungere tale output al file prova precedentemente creato. 
+
+in questo caso devo usare >> ovvero la redirect con append se no il secondo comando cancella il primo
+
+o lo faccio con due comandi separati
+
+pwd >> prova
+ls -al >> prova
+
+oppure raggruppo i due comandi
+
+(pwd, ls -al) >> prova
+
+46)	Usando il comando-filtro cat con le opportune ridirezioni, creare una copia del file prova e dargli nome p.txt. 
+
+cat prova > p.txt (dallo standard output va a p.txt)
+
+volendo si può fare anche
+
+cat < prova > p.txt (dallo standard input arriva il contenuto di prova che viene rediretto su p.txt)
+
+47)	Usando il comando-filtro cat con l’opportuna ridirezione, controllare il contenuto finale del file prova. 
+
+cat prova
+
+oppure
+
+cat < prova
+
+48)	Usando il comando cat con la ridirezione dello standard output in append aggiungere il contenuto del file prova al file p.txt almeno altre 5 volte in modo da avere un file che contenga molte linee. Verificare, poi, il contenuto del file p.txt.
+cat prova >> p.txt
+
+MORE 
+49)	Usando la ridirezione dello standard input e il comando-filtro more, visualizzare nuovamente il contenuto del file p.txt. Ricordarsi che per andare avanti di una videata si deve usare la barra spaziatrice, per avanzare di una singola linea si deve usare il tasto enter (invio) e per uscire se non si vuole più proseguire si deve usare il tasto q (QUIT). 
+
+more 
+
+50)	Verificare il comportamento del comando more, usando il comando more p*. 
+
+
+
+ESERCIZI EXTRA  DIRITTI DELLE DIRECTORY 
+51)	Creare una sottodirectory nella propria HOME directory dandogli nome dir ed inserire in essa alcuni file; quindi, eliminare, per l’utente corrente, il diritto di lettura sulla directory e verificare le azioni che si possono fare e quelle che sono impedite. 
+
+mkdir folder
+touch folder/file1 
+touch folder/file2
+touch folder/file2
+chmod u-r folder
+
+
+52)	Rimettere il diritto di lettura e procedere con l’eliminazione del diritto di scrittura e di nuovo verificare le azioni che si possono fare e quelle che sono impedite. 
+
+chmod u+r folder
+chmod u-w folder
+
+53)	Rimettere il diritto di scrittura e procedere con l’eliminazione del diritto di esecuzione e di nuovo verificare le azioni che si possono fare e quelle che sono impedite. 
+
+chmod u+w folder
+chmod u-e folder
+
+54)	Provare anche ad eliminare due diritti alla volta, invece che uno, provando le varie combinazioni: eliminare diritto di lettura e di scrittura; eliminare diritto di lettura e di esecuzione; eliminare diritto di scrittura e di esecuzione. 
+
+chmod u-rw folder 
+
+
+i permessi come sappiamo sono di 3 tipi
+
+La notazione "u" in chmod u-r file indica il proprietario del file. Nel contesto dei comandi chmod in Linux, ci sono tre categorie principali di utenti a cui puoi assegnare o rimuovere permessi:
+
+u: Proprietario (user)
+g: Gruppo a cui appartiene il file (group)
+o: Altri utenti (others)
+

@@ -1,0 +1,178 @@
+RIDIREZIONE A VUOTO
+
+1)
+echo "" > file.txt
+> file.txt
+cat > file.txt (con cat apro lo standar input se do diretto invio)
+
+2)
+echo "file_di_prova" > /tmp/file_prova.txt
+
+3)
+sort -c < file_prova.txt
+(-c sta per --check)
+
+4)
+sort file_sort.txt
+
+5)
+sort -r file_sort.txt
+
+6)
+sort -f file_sort.txt
+
+7)
+sort file_sort.txt > ordinato.txt
+
+8)
+sort -c ordinato
+(se è già ordinato non returna niente)
+
+9)
+sort -u file_sort.txt > ordinato_senza_doppi
+(-u sta per --unique)
+
+10)
+il comando sort essendo un comando filtro funziona sia passando il file medianto una redirezione standard input:
+
+sort < file_sort.txt
+
+oppure accettando come parametro direttamente il nome del file
+
+sort file_sort.txt
+
+inoltre si si vuole fare il redirect su un'altro file non è necessario usare lo standard output:
+
+sort file_sort.txt > output
+
+ma sort accetta come parametro -o (--origin) su cui redirectare il risultato della sort.
+
+11)
+grep "ciao" < ordinato_senza_doppi
+
+12)
+grep -n "ciao" < ordinato_senza_doppi
+
+13)
+grep -i "linea 1" < ordinato_senza_doppi
+
+14)
+grep -v ordinato_senza_doppi
+
+15)
+grep "^linea" < ordinato_senza_doppi
+
+16)
+grep "fine$" < ordinato_senza_doppi
+
+17)
+grep "\.$" < ordinato_senza_doppi
+
+18)
+grep "\.$" < ordinato_senza_doppi > prova-grep.txt
+
+19)
+grep "\.$" ordinato_senza_doppi > prova-grep.txt
+
+20)
+wc -l < prova-grep.txt
+
+(
+-l --lines conta le linee
+-w --words conta le parole
+-m --chars conta i caratteri
+)
+
+21)
+wc -m < prova-grep.txt
+
+22)
+wc -w < prova-grep.txt
+
+23)
+wc prova-grep.txt   (supporta anche il file come parametro senza redirezione std input)
+
+24)
+wc pippo 2> /dev/null
+
+25)
+ps | tee temp | wc -l
+
+(ps mostra i processi
+tee prende lo standrd input e lo redirecta su tmp
+wc legge le linee di tmp)
+
+26)
+head -2 p.txt
+
+con head prendo le prime n righe
+il parametro -2 identifica il numero di linee da leggere
+head -1 p.txt
+head -3 p.txt
+head -10 p.txt
+
+30)
+tail -1 p.txt
+
+con tail prendo le ultie n righe
+tail -3 p.txt
+
+32)
+head -1 p.txt > file
+tail -1 p.txt > file
+
+33)
+(anche tail e head possono essere utilizzati con standard input
+head -1 < p.txt > file
+)
+
+34)
+head -3 p.txt | tail -1
+(prendo le prime 3 e poi seleziono solo l'ultima che è la terza)
+
+35)
+tail -3 p.txt | head -1 p.txt
+
+36)
+rev < ordinato
+
+37)
+i file che incominciano con:
+lettere minuscole
+a) echo [a-z]*
+lettere maiuscole
+b) echo [A-Z]*
+numeri
+c) echo [0-9]*
+i file che finiscono con:
+lettere minuscole
+d) echo *[a-z]
+lettere maiuscole
+e) echo *[A-Z]
+numeri
+f) echo *[0-9]
+
+38)
+volendo è possibile negarli 
+
+echo [!A-Z]*
+mostra i file che NON incominciano con lettere maiuscole
+
+39)
+lo stesso pattern è accettato dal comando ls e le sue combinazioni
+
+//VARIABILI DI SHELL O VARIABILI LOCALI
+x = 10
+echo $x
+
+//VARIABILI D'AMBIENTE
+env --> visualizza tutt le variabili d'ambiente
+export a = 20 --> settare una variabile d'ambiente
+printenv a --> stampa una variabile d'ambiente
+echo $a --> stampa la variabile d'ambiente
+
+export x = "$(wc -l /home/matteo/ese2/ordinato)"
+(x contiene il numero di righe del file ordinato)
+
+export z=$(expr $a + $b)
+(per le espressioni ci vuole lo spazio se no viene preso come un testo)
