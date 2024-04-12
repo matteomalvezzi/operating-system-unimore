@@ -10,7 +10,7 @@ touch /tmp/nomiAssoluti
 C=""
 
 #controllo che i parametri siano maggiori o uguali a 2
-if test $# -ge 2
+if test $# -ge 3
 then
     
     count=1
