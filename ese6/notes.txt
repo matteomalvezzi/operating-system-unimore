@@ -1,0 +1,15 @@
+visto che in linux mint i sorgenti delle librerie standard non sono presenti
+bisogna scaricarli in modo tale da poter usare tutte le librerie del c standard come:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+per scaricale:
+
+sudo apt install libc6-dev
+
+successivamente i sorgenti si trovano nelle directory standard del file system ovvero:
+
+/usr/include o /usr/local/include
+
+in modo tale che il compilatore e il linker le trovino senza ulteriori configurazioni
